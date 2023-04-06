@@ -1,0 +1,11 @@
+import datetime
+def get_last_friday(date: str) -> str:
+    date_format = date.split('/')
+    date_format.reverse()
+    date_format.append('01')
+    date_format[1] = str(int(date_format[1]) + 1).rjust(2, '0')
+    date_format = ('-').join(date_format)
+    date_obj = datetime.date.fromisoformat(date_format)
+    offset = (date_obj.weekday() - 4) % 7
+    res = date_obj - datetime.timedelta(days=offset)
+    return res.strftime('%d.%m.%Y')
